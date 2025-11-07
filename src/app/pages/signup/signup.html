@@ -1,3 +1,4 @@
+<app-header></app-header>
 <form #f="ngForm" (ngSubmit)="f.form.valid && signup()"
     class="flex flex-col gap-5 max-w-md mx-auto mt-10 p-6 border rounded">
     <h2 class="text-3xl text-black font-bold ">Sign Up</h2>
@@ -28,5 +29,5 @@
     </div>
 
     <button type="submit" [disabled]="!f.form.valid"
-        class="bg-red-500 text-white p-2 rounded disabled:opacity-50 disabled:cursor-not-allowed">Sign Up</button>
+        class="bg-red-500 text-white p-2 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">Sign Up</button>
 </form>

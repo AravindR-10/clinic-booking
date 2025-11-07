@@ -1,0 +1,19 @@
+<div class="p-4">
+  <h1 class="text-xl font-bold mb-4">Add Doctor</h1>
+  <form [formGroup]="doctorForm" (ngSubmit)="saveDoctor()">
+    <input type="text" formControlName="name" placeholder="Name" class="border p-2 w-full mb-2" />
+    <input type="text" formControlName="specialization" placeholder="Specialization" class="border p-2 w-full mb-2" />
+
+    <h3 class="font-semibold mb-2">Available Slots</h3>
+    <div formArrayName="availableSlots">
+      <div *ngFor="let slot of availableSlots.controls; let i = index" [formGroupName]="i" class="mb-4">
+        <input type="date" formControlName="date" class="border p-2 w-full mb-1" />
+        <input type="time" formControlName="startTime" class="border p-2 w-full mb-1" />
+        <input type="time" formControlName="endTime" class="border p-2 w-full mb-1" />
+        <button type="button" class="bg-red-500 text-white px-2 py-1 rounded" (click)="removeSlot(i)">Remove</button>
+      </div>
+    </div>
+    <button type="button" class="bg-gray-600 text-white px-4 py-2 rounded mt-2" (click)="addSlot()">Add Slot</button>
+    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-4 ml-4">Save Doctor</button>
+  </form>
+</div>

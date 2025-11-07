@@ -5,10 +5,11 @@ import { Firestore } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Header } from "../../components/header/header";
 
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Header],
   templateUrl: './signup.html',
   styleUrl: './signup.css',
 })

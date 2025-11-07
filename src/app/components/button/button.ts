@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 export class Button {
 
   @Input() label: string = "";
-  @Input() color: string = "";
   @Input() route: string = "";
 
   constructor(private router: Router) {}
