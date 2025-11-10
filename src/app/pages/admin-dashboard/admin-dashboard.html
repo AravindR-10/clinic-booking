@@ -1,21 +1,32 @@
 <div class="flex justify-end p-4">
     <app-logout-button></app-logout-button>
 </div>
+
 <h1 class="text-5xl text-center">Admin Dashboard</h1>
-<div class="flex p-4 mt-20 justify-center">
-    <app-button class="px-1 py-1 text-3xl text-white bg-blue-950" label="Add doctor" route="/add-doctor"></app-button>
+<div class="flex p-4 mt-10 justify-center">
+    <app-button class="p-1.5 text-2xl text-white bg-blue-950 rounded-2xl" label="Add doctor"
+        route="/add-doctor"></app-button>
+    <app-button class="p-1.5 text-2xl text-white bg-blue-950 ml-5 rounded-2xl" label="View bookings"
+        route="/view-bookings"></app-button>
 </div>
-<p class="text-2xl ml-10 mt-10">List of doctors:</p>
-<div *ngFor="let doctor of doctors" class="border p-4 m-4 rounded shadow-md max-w-4xl mx-auto">
-    <h2 class="text-2xl font-bold">Name: {{ doctor.name }}</h2>
-    <p class="text-xl">Specialization: {{ doctor.specialization }}</p>
-    <p class="text-xl">Slots:
-        <span *ngFor="let slot of doctor.availableSlots">
-            <ul>
-                <li>{{ slot.date }} ({{ slot.startTime }} - {{ slot.endTime }})</li>
+
+<div class="p-6">
+    <h1 class="text-3xl font-bold mb-6 text-center">List of Doctors</h1>
+    <div *ngIf="doctors.length === 0" class="text-center text-gray-500">
+        No doctors available at the moment.
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let doctor of doctors" class="border rounded-lg shadow-md p-4 bg-white">
+            <h2 class="text-2xl font-semibold mb-2">Name: {{ doctor.name }}</h2>
+            <p class="text-black mb-1 text-xl"><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+            <p class="text-black mb-2"><strong>Available Slots:</strong></p>
+            <ul class="list-disc list-inside text-black mb-4">
+                <li *ngFor="let slot of doctor.availableSlots || []">
+                    {{ slot.date }} ({{ slot.startTime }} - {{ slot.endTime }})
+                </li>
             </ul>
-        </span>
-    </p>
-    <button class="bg-green-600 text-white px-2 py-1 rounded mr-2" (click)="editDoctor(doctor.id)">Edit</button>
-    <button class="bg-red-600 text-white px-2 py-1 rounded" (click)="deleteDoctor(doctor.id)">Delete</button>
+            <button class="bg-green-600 text-white px-2 py-1 rounded mr-2 cursor-pointer" (click)="editDoctor(doctor.id)">Edit</button>
+            <button class="bg-red-600 text-white px-2 py-1 rounded cursor-pointer" (click)="deleteDoctor(doctor.id)">Delete</button>
+        </div>
+    </div>
 </div>
