@@ -1,0 +1,18 @@
+<div class="p-6 max-w-xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Book Appointment with {{ doctorData.name }}</h1>
+    <p class="mb-2"><strong>Specialization:</strong> {{ doctorData.specialization }}</p>
+
+    <form [formGroup]="appointmentForm" (ngSubmit)="bookAppointment()">
+        <h3 class="text-lg font-semibold mb-2">Select an Available Slot:</h3>
+        <div *ngFor="let slot of doctorData.availableSlots || []" class="mb-2">
+            <label class="flex items-center space-x-2">
+                <input type="radio" [value]="slot" formControlName="slot" />
+                <span>{{ slot.date }} ({{ slot.startTime }} - {{ slot.endTime }})</span>
+            </label>
+        </div>
+
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-4 cursor-pointer">
+            Confirm Appointment
+        </button>
+    </form>
+</div>

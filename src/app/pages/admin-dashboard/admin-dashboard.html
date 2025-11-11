@@ -12,9 +12,9 @@
 
 <div class="p-6">
     <h1 class="text-3xl font-bold mb-6 text-center">List of Doctors</h1>
-    <div *ngIf="doctors.length === 0" class="text-center text-gray-500">
-        No doctors available at the moment.
-    </div>
+    <div *ngIf="loading" class="text-center">Loading doctors...</div>
+    <div *ngIf="!loading && !err && doctors.length === 0" class="text-gray-500">No bookings found.</div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div *ngFor="let doctor of doctors" class="border rounded-lg shadow-md p-4 bg-white">
             <h2 class="text-2xl font-semibold mb-2">Name: {{ doctor.name }}</h2>
@@ -25,8 +25,10 @@
                     {{ slot.date }} ({{ slot.startTime }} - {{ slot.endTime }})
                 </li>
             </ul>
-            <button class="bg-green-600 text-white px-2 py-1 rounded mr-2 cursor-pointer" (click)="editDoctor(doctor.id)">Edit</button>
-            <button class="bg-red-600 text-white px-2 py-1 rounded cursor-pointer" (click)="deleteDoctor(doctor.id)">Delete</button>
+            <button class="bg-green-600 text-white px-2 py-1 rounded mr-2 cursor-pointer"
+                (click)="editDoctor(doctor.id)">Edit</button>
+            <button class="bg-red-600 text-white px-2 py-1 rounded cursor-pointer"
+                (click)="deleteDoctor(doctor.id)">Delete</button>
         </div>
     </div>
 </div>

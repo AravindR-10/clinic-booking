@@ -34,6 +34,7 @@ export class Login {
 
         localStorage.setItem('userRole', role);
         localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userId', snapshot.docs[0].id);
 
         alert('Login successful!');
 

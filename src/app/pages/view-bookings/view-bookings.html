@@ -1,0 +1,27 @@
+<div class="p-6 max-w-2xl mx-auto">
+	<h1 class="text-2xl font-bold mb-4">All Bookings</h1>
+
+	<div *ngIf="loading">Loading bookings...</div>
+	<div *ngIf="error" class="text-red-500">{{ error }}</div>
+
+	<div *ngIf="!loading && !error && bookings.length === 0" class="text-gray-500">No bookings found.</div>
+
+	<div *ngIf="bookings.length > 0">
+		<table class="min-w-full border">
+			<thead>
+				<tr class="bg-gray-100">
+					<th class="p-2 border">Doctor</th>
+					<th class="p-2 border">Date</th>
+					<th class="p-2 border">Time</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let booking of bookings">
+					<td class="p-2 border">{{ booking.doctorName }}</td>
+					<td class="p-2 border">{{ booking.appointmentDate }}</td>
+					<td class="p-2 border">{{ booking.startTime }} - {{ booking.endTime }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
