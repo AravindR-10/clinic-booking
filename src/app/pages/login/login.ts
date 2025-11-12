@@ -47,7 +47,6 @@ export class Login {
         alert('Invalid email or password. Please try again.');
       }
     } catch (error) {
-      console.error('Error during login: ', error);
       alert('Login failed. Please try again.');
     }
   }

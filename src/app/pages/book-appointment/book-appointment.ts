@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,15 +16,15 @@ export class BookAppointment implements OnInit {
   doctorId!: string;
   doctorData: any;
   appointmentForm!: FormGroup;
+  loading = true;
 
   constructor(
     private route: ActivatedRoute,
     private firestore: Firestore,
     private fb: FormBuilder,
     private router: Router,
-    private zone: NgZone,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.doctorId = this.route.snapshot.paramMap.get('doctorId')!;
@@ -35,13 +35,13 @@ export class BookAppointment implements OnInit {
   }
 
   async loadDoctorData() {
+    try {
     const doctorRef = doc(this.firestore, 'doctors', this.doctorId);
     const doctorSnap = await getDoc(doctorRef);
-    if (doctorSnap.exists()) {
-      this.zone.run(() => {
-        this.doctorData = doctorSnap.data();
-        this.cdr.detectChanges();
-      });
+    this.doctorData = doctorSnap.data();
+    } finally {
+      this.loading = false;
+      this.cdr.detectChanges();
     }
   }
 
@@ -58,7 +58,7 @@ export class BookAppointment implements OnInit {
       userId: localStorage.getItem('userId'),
       doctorId: this.doctorId,
       doctorName: this.doctorData.name,
-      appointmentDate: selectedSlot.date, 
+      appointmentDate: selectedSlot.date,
       startTime: selectedSlot.startTime,
       endTime: selectedSlot.endTime
     });

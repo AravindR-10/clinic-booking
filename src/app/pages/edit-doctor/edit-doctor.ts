@@ -74,5 +74,4 @@ export class EditDoctor implements OnInit {
       alert('Please fill all required fields.');
     }
   }
-
 }

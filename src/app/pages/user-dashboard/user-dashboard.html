@@ -4,9 +4,8 @@
 <div class="p-6">
 	<h1 class="text-3xl font-bold mb-6 text-center">Available Doctors</h1>
 
-	<div *ngIf="doctors.length === 0" class="text-center text-gray-500">
-		No doctors available at the moment.
-	</div>
+	<div *ngIf="loading" class="text-center">Loading doctors...</div>
+	<div *ngIf="!loading && !err && doctors.length === 0" class="text-gray-500">No bookings found.</div>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 		<div *ngFor="let doctor of doctors" class="border rounded-lg shadow-md p-4 bg-white">

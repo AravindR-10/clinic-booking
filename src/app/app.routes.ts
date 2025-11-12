@@ -12,5 +12,6 @@ export const routes: Routes = [
     { path: 'add-doctor', loadComponent: () => import('./pages/add-doctor/add-doctor').then(m => m.AddDoctor), canActivate: [AdminGuard] },
     { path: 'edit-doctor/:id', loadComponent: () => import('./pages/edit-doctor/edit-doctor').then(m => m.EditDoctor), canActivate: [AdminGuard] },
     { path: 'book-appointment/:doctorId', loadComponent: () => import('./pages/book-appointment/book-appointment').then(m => m.BookAppointment), canActivate: [AuthGuard] },
-    { path: 'view-bookings', loadComponent: () => import('./pages/view-bookings/view-bookings').then(m => m.ViewBookings), canActivate: [AdminGuard] }
+    { path: 'view-bookings', loadComponent: () => import('./pages/view-bookings/view-bookings').then(m => m.ViewBookings), canActivate: [AdminGuard] },
+    { path: '**', loadComponent: () => import('./pages/pagenotfound/pagenotfound').then(m => m.Pagenotfound) }
 ];

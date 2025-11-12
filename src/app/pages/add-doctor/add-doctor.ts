@@ -42,7 +42,6 @@ export class AddDoctor {
 
   async saveDoctor() {
     if (this.doctorForm.invalid) return alert('Please fill all required fields.');
-
     const doctorsRef = collection(this.firestore, 'doctors');
     await addDoc(doctorsRef, this.doctorForm.value);
     alert('Doctor added successfully.');

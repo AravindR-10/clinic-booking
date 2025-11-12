@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LogoutButton } from '../../components/logout-button/logout-button';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, getDocs } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,21 +13,26 @@ import { CommonModule } from '@angular/common';
 })
 export class UserDashboard implements OnInit {
   doctors: any[] = [];
+  loading = true;
+  err: string | null = null;
 
-  constructor(private firestore: Firestore, private router: Router, private zone: NgZone, private cdr: ChangeDetectorRef) {}
+  constructor(private firestore: Firestore, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadDoctors();
   }
 
-  loadDoctors() {
-    const doctorsRef = collection(this.firestore, 'doctors');
-    onSnapshot(doctorsRef, (snapshot) => {
-      this.zone.run(() => {
-        this.doctors = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        this.cdr.detectChanges();
-      });
-    });
+  async loadDoctors() {
+    try {
+      const doctorsRef = collection(this.firestore, 'doctors');
+      const querySnapshot = await getDocs(doctorsRef);
+      this.doctors = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    } catch (err: any) {
+      this.err = "Failed to load doctors";
+    } finally {
+      this.loading = false;
+      this.cdr.detectChanges();
+    }
   }
 
   bookAppointment(doctorId: string) {

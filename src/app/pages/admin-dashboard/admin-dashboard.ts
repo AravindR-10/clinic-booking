@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LogoutButton } from "../../components/logout-button/logout-button";
 import { Button } from "../../components/button/button";
 import { collection, Firestore, getDocs } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -19,7 +19,7 @@ export class AdminDashboard implements OnInit {
   loading = true;
   err: string | null = null;
 
-  constructor(private router: Router, private firestore: Firestore, private zone: NgZone, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private firestore: Firestore, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadDoctors();
