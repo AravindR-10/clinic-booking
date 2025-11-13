@@ -46,6 +46,7 @@ export class AdminDashboard implements OnInit {
     if (confirm('Are you sure you want to delete this doctor?')) {
       await deleteDoc(doc(this.firestore, 'doctors', id));
       alert('Doctor deleted successfully.');
+      this.loadDoctors();
     }
   }
 }
